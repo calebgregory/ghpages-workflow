@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/calebgregory/ghpages-workflow",
   "devDependencies": {
+    "bowcat": "0.0.4",
     "jade": "^1.9.2",
     "node-sass": "^3.1.0"
   }
