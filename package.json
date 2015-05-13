@@ -1,0 +1,19 @@
+{
+  "name": "ghpages-workflow",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/calebgregory/ghpages-workflow"
+  },
+  "author": "Caleb Gregory <calebgregory@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/calebgregory/ghpages-workflow/issues"
+  },
+  "homepage": "https://github.com/calebgregory/ghpages-workflow"
+}
