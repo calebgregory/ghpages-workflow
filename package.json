@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "./node_modules/.bin/hs -a localhost -p $((RANDOM + 10000)) -o",
+    "build": "./build.sh",
+    "start": "npm run build; npm run server",
+    "deploy": "npm run build; ./deploy.sh"
   },
   "repository": {
     "type": "git",
@@ -18,6 +22,7 @@
   "homepage": "https://github.com/calebgregory/ghpages-workflow",
   "devDependencies": {
     "bowcat": "0.0.4",
+    "http-server": "^0.8.0",
     "jade": "^1.9.2",
     "node-sass": "^3.1.0"
   }
