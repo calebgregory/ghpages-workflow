@@ -1,32 +1,26 @@
 #!/bin/sh
 
 # install dependencies
-npm install
-bower install
+# npm install
+# bower install
 
 # clean and prepare public directory
-rm -rf public
-cp -r src public
+# rm -rf public
+# cp -r src public
 
 
 # compile jade to html ( -P : prettify )
-./node_modules/.bin/jade src -P
-cd src
-find . -name "*.html" | cpio -pdvm ../public
-cd ..
-rm -rf src/**/*.html \
-       src/*.html \
-       public/**/_*.html \
-       public/_partials
+# ./node_modules/.bin/jade src -o public -PH
+# rm -rf public/_partials
 
 # compile sass to css
-./node_modules/.bin/node-sass \
-  --output-style compressed \
-  --source-map-embed \
-  src/_styles/main.scss public/css/main.css
+#./node_modules/.bin/node-sass \
+#  --output-style compressed \
+#  --source-map-embed \
+#  src/_styles/main.scss public/css/main.css
 
 # convert ES6 JS to ES5
-./node_modules/.bin/babel src --out-dir public -s inline
+# ./node_modules/.bin/babel src --out-dir public -s inline
 
 # concat bower_components to public/lib directory
 if [ -d "bower_components" ]; then
@@ -34,8 +28,8 @@ if [ -d "bower_components" ]; then
 fi
 
 # clean unneeded files
-rm -rf public/_styles \
-       public/*.jade \
-       public/**/*.jade \
-       public/*.scss \
-       public/**/*.scss
+# rm -rf public/_styles \
+#        public/*.jade \
+#        public/**/*.jade \
+#        public/*.scss \
+#        public/**/*.scss
