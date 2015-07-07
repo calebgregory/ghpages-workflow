@@ -19,7 +19,7 @@ gulp.task('autoprefixer', function() {
 });
 
 gulp.task('babel:dev', function() {
-  return gulp.src('src/js/*.js')
+  return gulp.src('src/**/*.js')
     .pipe($.sourcemaps.init())
     .pipe($.babel())
     .pipe($.sourcemaps.write())
@@ -27,7 +27,7 @@ gulp.task('babel:dev', function() {
 });
 
 gulp.task('babel:prod', function() {
-  return gulp.src('src/js/*.js')
+  return gulp.src('src/**/*.js')
     .pipe($.babel())
     .pipe(gulp.dest('public/js'));
 });
@@ -36,11 +36,22 @@ gulp.task('bower', function() {
   return gulp.src($.mainBowerFiles('**/*.js'))
     .pipe($.concat('build.js'))
     .pipe(gulp.dest('public/lib'));
+  return gulp.src($.mainBowerFiles('**/*.css'))
+    .pipe($.concat('build.css'))
+    .pipe(gulp.dest('public/lib'));
 });
 
-gulp.task('clean', function() {
-  $.del('public');
-})
+gulp.task('clean', function(cb) {
+  $.del('public', cb);
+});
+
+gulp.task('copy', function() {
+  gulp.src(['src/**',
+            '!src/**/*.jade',
+            '!src/**/*.scss',
+            '!src/**/*.js'])
+    .pipe(gulp.dest('public'));
+  });
 
 gulp.task('jade:dev', function() {
   gulp.src(['src/**/*.jade', '!src/**/_*.jade'])
@@ -79,7 +90,7 @@ gulp.task('uglify-lib', function() {
     .pipe(gulp.dest('public/lib'));
 })
 
-gulp.task('build', ['clean'], function(cb) {
+gulp.task('build', ['clean', 'copy'], function(cb) {
   runSeq([
       'jade:prod',
       'sass:prod',
@@ -93,7 +104,7 @@ gulp.task('build', ['clean'], function(cb) {
     cb);
 });
 
-gulp.task('serve', ['jade:dev', 'sass:dev', 'babel:dev'], function() {
+gulp.task('serve', ['jade:dev', 'sass:dev', 'babel:dev', 'bower'], function() {
 
   browserSync.init({
     server: {
@@ -106,7 +117,8 @@ gulp.task('serve', ['jade:dev', 'sass:dev', 'babel:dev'], function() {
   gulp.watch('src/**/*.js', ['babel:dev']);
   gulp.watch('src/**/*.scss', ['autoprefixer']);
 
-  gulp.watch(['public/*.html', 'public/*.css', 'public/js/*.js']).on('change', browserSync.reload);
+  gulp.watch(['public/*.html', 'public/*.css', 'public/js/*.js'])
+    .on('change', browserSync.reload);
 });
 
 gulp.task('default', ['serve']);
